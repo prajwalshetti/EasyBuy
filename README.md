@@ -8,5 +8,3 @@ EasyBuy is an e-commerce application built with a full-stack architecture. The b
 - **Product Management**: Users can browse available products, add them to their cart, and place orders.
 - **Order Management**: Admin can view and manage orders.
 - **Secure API Communication**: The application uses JWT tokens for secure communication between the frontend and backend.
-
-z
