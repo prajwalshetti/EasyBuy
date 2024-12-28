@@ -1,141 +1,129 @@
-import { NavLink,Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
-import { useState } from "react";
 import { useCart } from "../context/CartContext";
+import { Search, ShoppingCart, Package, User, Home, LogIn, UserPlus, Settings } from 'lucide-react';
+import { useState } from "react";
 
 function NavBar() {
-  const { isLoggedIn, setIsLoggedIn } = useAuth();
-  const { user, setUser } = useAuth();
-  const [error, setError] = useState();
-  const [success, setSuccess] = useState();
+  const { isLoggedIn, user, search, setSearch } = useAuth();
+  const { cart } = useCart();
   const navigate = useNavigate();
-  const { search, setSearch } = useAuth();
-  const { cart, setCart } = useCart();
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const NavItem = ({ to, children, end = false }) => (
+    <NavLink
+      to={to}
+      end={end}
+      className={({ isActive }) =>
+        `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+          isActive
+            ? "text-blue-600 bg-white shadow-md font-semibold transform -translate-y-0.5"
+            : "text-gray-700 hover:text-blue-600 hover:bg-white/50"
+        }`
+      }
+    >
+      {children}
+    </NavLink>
+  );
+
+  // Handle the search and navigate to Home
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+    navigate('/dashboard'); // Redirect to the home page
+  };
+
+  // Handle "Enter" key press to trigger search
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      navigate('/'); // Redirect to the home page when "Enter" is pressed
+    }
+  };
 
   return (
-    <>
-      <nav>
-        <header className="border-b bg-white font-sans min-h-[60px] px-10 py-3 relative z-50 bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 ">
-          <div className="flex items-center justify-between">
-            {/* Menu Items */}
-            <div className="hidden lg:flex lg:items-center gap-x-8">
-          <NavLink
-            to="/dashboard"
-            end
-            className={({ isActive }) =>
-              isActive
-                ? "text-blue-500 font-bold"
-                : "text-gray-600 hover:text-blue-500 font-bold"
-            }
-          >
-            Home
-          </NavLink>
+    <nav className="top-0 z-50 w-full backdrop-blur-sm bg-pink-200 border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Left side - Menu Items */}
+          <div className="hidden lg:flex items-center space-x-1">
+            <NavItem to="/dashboard" end>
+              <Home className="w-4 h-4" />
+              <span>Home</span>
+            </NavItem>
 
+            <NavItem to="/dashboard/profile">
+              <User className="w-4 h-4" />
+              <span>Profile</span>
+            </NavItem>
+
+            {!isLoggedIn && (
+              <>
+                <NavItem to="/">
+                  <UserPlus className="w-4 h-4" />
+                  <span>Register</span>
+                </NavItem>
+                <NavItem to="/login">
+                  <LogIn className="w-4 h-4" />
+                  <span>Login</span>
+                </NavItem>
+              </>
+            )}
+
+            {isLoggedIn && user.role === 1 && (
+              <NavItem to="/dashboard/adminDashboard">
+                <Settings className="w-4 h-4" />
+                <span>Admin</span>
+              </NavItem>
+            )}
+          </div>
+
+          <div className="bg-white border rounded-full flex items-center px-4 py-2 mx-auto lg:w-1/3 hover:shadow-lg">
+            <span className="text-gray-600">🔍</span>
+            <input
+              type="text"
+              placeholder="Search..."
+              value={search}
+              onChange={handleSearch} // Update search and navigate
+              onKeyDown={handleKeyDown} // Trigger search on "Enter"
+              className="bg-transparent outline-none text-gray-600 text-sm font-medium ml-2 w-full"
+            />
+          </div>
+
+          {/* Right side - Orders & Cart */}
+          <div className="flex items-center space-x-4">
+            <NavItem to="/dashboard/order">
+              <Package className="w-4 h-4" />
+              <span>Orders</span>
+            </NavItem>
+
+            <div
+              className="relative"
+              onClick={() => {
+                if (!isLoggedIn) navigate("/login");
+              }}
+            >
               <NavLink
-                to="/dashboard/profile"
+                to="/dashboard/cart"
                 className={({ isActive }) =>
-                  isActive
-                    ? "text-blue-500 font-bold"
-                    : "text-gray-600 hover:text-blue-500 font-bold"
+                  `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+                    isActive
+                      ? "text-blue-600 bg-white shadow-md font-semibold transform -translate-y-0.5"
+                      : "text-gray-700 hover:text-blue-600 hover:bg-white/50"
+                  }`
                 }
               >
-                Profile
+                <ShoppingCart className="w-4 h-4" />
+                <span>Cart</span>
+                {cart?.length > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-blue-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {cart.length}
+                  </span>
+                )}
               </NavLink>
-
-              {/* Register */}
-              {!isLoggedIn && (
-                <NavLink
-                  to="/"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 font-bold"
-                      : "text-gray-600 hover:text-blue-500 font-bold"
-                  }
-                >
-                  Register
-                </NavLink>
-              )}
-
-              {/* Login */}
-              {!isLoggedIn && (
-                <NavLink
-                  to="/login"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 font-bold"
-                      : "text-gray-600 hover:text-blue-500 font-bold"
-                  }
-                >
-                  Login
-                </NavLink>
-              )}
-
-              {/* Admin Dashboard */}
-              {isLoggedIn && user.role === 1 && (
-                <NavLink
-                  to="/dashboard/adminDashboard"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 font-bold"
-                      : "text-gray-600 hover:text-blue-500 font-bold"
-                  }
-                >
-                  Admin Dashboard
-                </NavLink>
-              )}
-            </div>
-
-            {/* Search Box */}
-            <div className="bg-white border rounded-full flex items-center px-4 py-2 mx-auto lg:w-1/3 hover:shadow-lg">
-              <span className="text-gray-600">🔍</span>
-              <input
-                type="text"
-                placeholder="Search..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="bg-transparent outline-none text-gray-600 text-sm font-medium ml-2 w-full"
-              />
-            </div>
-
-            {/* Your Orders */}
-            <NavLink
-              to="/dashboard/order"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-blue-500 font-bold mr-10"
-                  : "text-gray-600 hover:text-blue-500 font-bold mr-10"
-              }
-            >
-              Your Orders
-            </NavLink>
-
-            {/* Icons */}
-            <div className="flex items-center space-x-4">
-              <div
-                className="relative flex"
-                onClick={() => {
-                  if (!isLoggedIn) navigate("/login");
-                }}
-              >
-                <NavLink
-                  to="/dashboard/cart"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-blue-500 font-bold"
-                      : "text-gray-600 hover:text-blue-500 font-bold"
-                  }
-                >
-                  Cart {cart?.length}
-                </NavLink>
-                <Link to="/dashboard/cart" className="cursor-pointer hover:text-blue-500">
-                  🛒
-                </Link>
-              </div>
             </div>
           </div>
-        </header>
-      </nav>
-    </>
+        </div>
+      </div>
+    </nav>
   );
 }
 
