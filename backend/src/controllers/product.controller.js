@@ -28,10 +28,10 @@ const createProduct = asyncHandler(async (req, res) => {
 });
 
 const updateProduct = asyncHandler(async (req, res) => {
-    const { name, price, category, description, quantity, shipping } = req.body;
+    const { name, price, description, quantity, shipping } = req.body;
 
     // Validate required fields
-    if (!name || !price || !category || !description || !quantity) {
+    if (!name || !price || !description || !quantity) {
         throw new ApiError(400, "All fields are required");
     }
 
@@ -41,10 +41,8 @@ const updateProduct = asyncHandler(async (req, res) => {
     const product = await Product.findByIdAndUpdate(id,{
         name,
         price,
-        category,
         description,
-        quantity,
-        slug: slugify(name),
+        quantity
     },{new:true});
     res.status(200).json(product);
 });

@@ -59,7 +59,7 @@ function Cart() {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-100">
         <div className="flex flex-col items-center space-y-4 p-8 bg-white rounded-xl shadow-lg">
-          <AlertCircle className="w-16 h-16 text-yellow-400 animate-pulse" />
+          <AlertCircle className="w-16 h-16 text-yellow-400 " />
           <h1 className="text-2xl font-semibold text-gray-700">Your cart is empty</h1>
           <p className="text-gray-500">Start adding some items to your cart!</p>
           <button 
@@ -139,7 +139,7 @@ function Cart() {
         <div className="fixed bottom-6 right-6">
           <button
             onClick={openModal}
-            className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-yellow-400 to-yellow-600 text-white rounded-lg hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+            className="flex items-center space-x-2 px-3 py-2 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-lg hover:from-orange-500 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
           >
             <span className="font-medium">Checkout Total: {getTotalAmount()} Rs.</span>
           </button>

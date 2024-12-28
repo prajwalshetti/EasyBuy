@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/CartContext";
-import { Search, ShoppingCart, Package, User, Home, LogIn, UserPlus, Settings } from 'lucide-react';
+import { Search, ShoppingCart, Package, User, Home, LogIn, UserPlus, Settings, Lock } from 'lucide-react';
 import { useState } from "react";
 
 function NavBar() {
@@ -10,19 +10,22 @@ function NavBar() {
   const navigate = useNavigate();
   const [isSearchFocused, setIsSearchFocused] = useState(false);
 
-  const NavItem = ({ to, children, end = false }) => (
+  const NavItem = ({ to, children, end = false, requiresAuth = false }) => (
     <NavLink
-      to={to}
+      to={requiresAuth && !isLoggedIn ? "/login" : to}
       end={end}
       className={({ isActive }) =>
-        `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
+        `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 relative ${
           isActive
             ? "text-blue-600 bg-white shadow-md font-semibold transform -translate-y-0.5"
             : "text-gray-700 hover:text-blue-600 hover:bg-white/50"
-        }`
+        } ${requiresAuth && !isLoggedIn ? "opacity-75" : ""}`
       }
     >
       {children}
+      {requiresAuth && !isLoggedIn && (
+        <Lock className="w-3 h-3 absolute top-1 right-1 text-gray-500" />
+      )}
     </NavLink>
   );
 
@@ -50,7 +53,7 @@ function NavBar() {
               <span>Home</span>
             </NavItem>
 
-            <NavItem to="/dashboard/profile">
+            <NavItem to="/dashboard/profile" requiresAuth>
               <User className="w-4 h-4" />
               <span>Profile</span>
             </NavItem>
@@ -82,35 +85,21 @@ function NavBar() {
               type="text"
               placeholder="Search..."
               value={search}
-              onChange={handleSearch} // Update search and navigate
-              onKeyDown={handleKeyDown} // Trigger search on "Enter"
+              onChange={handleSearch}
+              onKeyDown={handleKeyDown}
               className="bg-transparent outline-none text-gray-600 text-sm font-medium ml-2 w-full"
             />
           </div>
 
           {/* Right side - Orders & Cart */}
           <div className="flex items-center space-x-4">
-            <NavItem to="/dashboard/order">
+            <NavItem to="/dashboard/order" requiresAuth>
               <Package className="w-4 h-4" />
               <span>Orders</span>
             </NavItem>
 
-            <div
-              className="relative"
-              onClick={() => {
-                if (!isLoggedIn) navigate("/login");
-              }}
-            >
-              <NavLink
-                to="/dashboard/cart"
-                className={({ isActive }) =>
-                  `flex items-center gap-2 px-4 py-2 rounded-lg transition-all duration-200 ${
-                    isActive
-                      ? "text-blue-600 bg-white shadow-md font-semibold transform -translate-y-0.5"
-                      : "text-gray-700 hover:text-blue-600 hover:bg-white/50"
-                  }`
-                }
-              >
+            <div className="relative">
+              <NavItem to="/dashboard/cart" requiresAuth>
                 <ShoppingCart className="w-4 h-4" />
                 <span>Cart</span>
                 {cart?.length > 0 && (
@@ -118,7 +107,7 @@ function NavBar() {
                     {cart.length}
                   </span>
                 )}
-              </NavLink>
+              </NavItem>
             </div>
           </div>
         </div>

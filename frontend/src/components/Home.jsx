@@ -23,7 +23,6 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeFilters, setActiveFilters] = useState(false);
 
-  // Existing axios calls and useEffects remain the same
   const getAllCategories = async () => {
     try {
       const response = await axios.get("http://localhost:8000/api/v1/category/getAllCategories");
@@ -45,9 +44,7 @@ function Home() {
       if (response.status === 200) {
         setProducts(response.data.products);
         closeModal();
-        if (category || minPrice > 0 || maxPrice < 100000) {
-          setActiveFilters(true);
-        }
+        setActiveFilters(category !== "" || minPrice > 0 || maxPrice < 100000 || search !== "");
       } else {
         toast.error("No products found");
       }
@@ -64,7 +61,21 @@ function Home() {
     setCategory("");
     setSearch("");
     setActiveFilters(false);
-    getAllProducts();
+
+    try {
+      setIsLoading(true);
+      const response = await axios.get("http://localhost:8000/api/v1/product/getAllProducts", {
+        params: { minPrice: 0, maxPrice: 100000, category: "", search: "" },
+        withCredentials: true
+      });
+      if (response.status === 200) {
+        setProducts(response.data.products);
+      }
+    } catch (error) {
+      toast.error("Error resetting products");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -141,7 +152,6 @@ function Home() {
   return (
     <div className="min-h-screen bg-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Filter Section */}
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-bold text-gray-900">
             Our Products

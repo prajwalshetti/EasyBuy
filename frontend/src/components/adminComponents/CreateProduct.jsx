@@ -3,6 +3,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Package, FileImage, PlusCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 function CreateProduct() {
   const [name, setName] = useState("");
@@ -15,6 +16,7 @@ function CreateProduct() {
   const [categories, setCategories] = useState([]);
   const [photoPreview, setPhotoPreview] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate=useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,6 +41,7 @@ function CreateProduct() {
       if (response.status === 200) {
         toast.success("Product created successfully");
         resetForm();
+        window.location.reload();
       } else {
         toast.error("Product creation failed");
       }

@@ -54,6 +54,7 @@ function AdminNavBar() {
           </div>
         </div>
       </div>
+
     </nav>
   );
 }

@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
-import { Package, Phone } from 'lucide-react';
+import { Package, Phone,AlertCircle,ShoppingBag } from 'lucide-react';
 
 function Order() {
   const { prevOrders, setPrevOrders } = useOrder();
@@ -50,6 +50,25 @@ function Order() {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if(prevOrders.length===0){
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center space-y-4 p-8 bg-white rounded-xl shadow-lg">
+          <AlertCircle className="w-16 h-16 text-yellow-400 animate-pulse" />
+          <h1 className="text-2xl font-semibold text-gray-700">No Previous Orders</h1>
+          <p className="text-gray-500">Start adding some items to your cart!</p>
+          <button 
+            onClick={() => navigate("/dashboard")} 
+            className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-orange-400 to-orange-600 text-white rounded-lg hover:from-orange-500 hover:to-orange-700 transition-all duration-300 shadow-md hover:shadow-lg"
+          >
+            <ShoppingBag className="w-5 h-5" />
+            <span>Start Shopping</span>
+          </button>
+        </div>
       </div>
     );
   }
