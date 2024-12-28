@@ -16,6 +16,26 @@ function Register() {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
+    const loginUser = async (e) => {
+        setLoading(true);
+        try {
+            const response = await axios.post("http://localhost:8000/api/v1/user/loginuser", {
+                email,
+                password
+            }, { withCredentials: true });
+
+            if (response.status === 200) {
+                setTimeout(() => navigate("/dashboard"), 1500);
+            } else {
+                console.log("User Login Failed");
+            }
+        } catch (error) {
+            console.log("User Login Failed");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
@@ -39,7 +59,8 @@ function Register() {
             });
             if (response.status === 200) {
                 setSuccess("User registered successfully");
-                setTimeout(() => navigate("/login"), 1500);
+                // setTimeout(() => navigate("/login"), 1500);
+                await loginUser()
             } else {
                 setError("User registration failed");
             }
@@ -159,7 +180,7 @@ function Register() {
                                         <Lock className="h-5 w-5 text-gray-400" />
                                     </div>
                                     <input
-                                        type="text"
+                                        type="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         className="pl-10 w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
@@ -209,7 +230,7 @@ function Register() {
                                             <Shield className="h-5 w-5 text-gray-400" />
                                         </div>
                                         <input
-                                            type="text"
+                                            type="password"
                                             value={adminSecretKey}
                                             onChange={(e) => setAdminSecretKey(e.target.value)}
                                             className="pl-10 w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"

@@ -130,7 +130,7 @@ function Login() {
                                         <Lock className="h-5 w-5 text-gray-400" />
                                     </div>
                                     <input
-                                        type="text"
+                                        type="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         className="pl-10 w-full px-4 py-2 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all"
