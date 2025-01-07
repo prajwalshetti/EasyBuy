@@ -46,9 +46,12 @@ const showChats=asyncHandler(async(req,res)=>{
     
     if(!senderCheck||!receiverCheck)throw new ApiError(400,"Invalid User IDs")
 
-    const query={}
-    query.sender=senderId
-    query.receiver=receiverId
+        const query = {
+            $or: [
+                { sender: senderId, receiver: receiverId },
+                { sender: receiverId, receiver: senderId }
+            ]
+        };
 
     const chats=await Chat.find(query).populate("sender").populate("receiver").sort({ createdAt: -1 });
     
