@@ -18,6 +18,7 @@ import SingleProduct from './components/adminComponents/SingleProduct.jsx'
 import ProductDetails from './components/ProductDetails.jsx'
 import Order from './components/Order.jsx'
 import ManageOrder from './components/adminComponents/ManageOrder.jsx'
+import Chat from './components/chat.jsx'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="profile" element={<Profile />} /> 
           <Route path="order" element={<Order/>}/>
           <Route path="cart" element={<Cart />} /> 
+          <Route path='chat' element={<Chat/>}/>
           {/* Elements not inserted */}
           <Route path='adminDashboard' element={<AdminDashboard/>}>
             <Route index element={<Category/>}/>

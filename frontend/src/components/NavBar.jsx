@@ -109,6 +109,12 @@ function NavBar() {
                 )}
               </NavItem>
             </div>
+
+            
+            <NavItem to="/dashboard/chat" requiresAuth>
+              <Package className="w-4 h-4" />
+              <span>Chat</span>
+            </NavItem>
           </div>
         </div>
       </div>
