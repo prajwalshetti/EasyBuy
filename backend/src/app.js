@@ -20,10 +20,12 @@ import userRouter from "./routes/user.routes.js"
 import categoryRouter from "./routes/category.routes.js"
 import productRouter from "./routes/product.routes.js"
 import orderRouter from "./routes/order.routes.js"
+import chatRouter from "./routes/chat.routes.js"
 
 app.use("/api/v1/user",userRouter)
 app.use("/api/v1/category",categoryRouter)
 app.use("/api/v1/product",productRouter)
 app.use("/api/v1/order",orderRouter)
+app.use("/api/v1/chat",chatRouter)
 
 export {app}
