@@ -8,7 +8,7 @@ export const verifyJWT= asyncHandler( async (req,res,next) => {
 
         const token=req.cookies?.token
         ||req.header("Authorization")?.replace("Bearer ","")
-        console.log("Token is : ",token)||req.header("token")||req.headers.authorization
+        // console.log("Token is : ",token)||req.header("token")||req.headers.authorization
         // ||localStorage.getItem('token')
     
         if(!token) throw new ApiError(401,"Unauthorized request")
@@ -20,7 +20,7 @@ export const verifyJWT= asyncHandler( async (req,res,next) => {
         if(!user)throw new ApiError(401,"Invalid Access Token")
         
         req.user=user
-        console.log(user.username)
+        console.log(`Logged in user : ${user.username}`)
         if(token)
             next()
     } catch (error) {
