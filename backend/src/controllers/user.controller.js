@@ -74,10 +74,25 @@ const logoutuser=asyncHandler(async(req,res)=>{
 })
 
 const getAllUsers=asyncHandler(async(req,res)=>{
-    const users=await User.find()
+    const {role}=req.body
+    const query={}
+    if(role){
+        query.role=role
+    }
+    const users=await User.find(query)
     if(!users) throw new ApiError(400,"No users found")
 
     return res.status(200).send(users)
 })
 
-export {register,loginuser,logoutuser,getAllUsers}
+const getUserById=asyncHandler(async(req,res)=>{
+    const {id}=req.params;
+    if(!id) throw new ApiError(400,"Id is required")
+
+    const user=await User.findById(id)
+    if(!user)throw new ApiError(500,"No user found")
+    
+    res.status(200).send(user)
+})
+
+export {register,loginuser,logoutuser,getAllUsers,getUserById}
