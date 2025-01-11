@@ -12,6 +12,31 @@ const Chat = () => {
   const [admins, setAdmins] = useState([]);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const messagesEndRef = useRef(null);
+  
+  const [chatters,setChatters]=useState([])
+  const fetchAllChatters=async()=>{
+    try {
+      const response=await axios.get("http://localhost:8000/api/v1/chat/getPeopleWhoChattedWithMe",{withCredentials:true})
+      for(let i in response.data){
+        console.log(response.data[i])
+      }
+      const chatterDetails = await Promise.all(
+        response.data.map(async (chatterId) => {
+          const userResponse = await axios.get(`http://localhost:8000/api/v1/user/getUserById/${chatterId}`, { withCredentials: true });
+          return userResponse.data; // Assuming `data` contains the user details
+        })
+      );
+      setChatters(chatterDetails);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(()=>{
+    fetchAllChatters()
+  },[])
+
+
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -93,7 +118,35 @@ const Chat = () => {
   if (!selectedAdmin) {
     return (
       <div className="max-w-4xl mx-auto p-4">
-        <div className="bg-white rounded-2xl shadow-lg p-6">
+
+          <div className="flex items-center gap-3 mb-8 border-b pb-4">
+            <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-2 rounded-xl">
+              <MessageSquare className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h2 className="text-2xl font-bold text-gray-800">Your Previous Conversations</h2>
+              <p className="text-sm text-gray-500">Select an admin to continue chatting</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {chatters.map((chatter) => (
+              <button
+                key={chatter._id}
+                onClick={() => setSelectedAdmin(chatter)}
+                className="flex items-center p-4 border border-gray-100 rounded-xl hover:bg-yellow-50 hover:border-yellow-200 transition-all duration-200 group"
+              >
+                <div className="flex-1">
+                  <h3 className="font-semibold text-gray-800 group-hover:text-yellow-600">{chatter.username}</h3>
+                  <p className="text-sm text-gray-500">{chatter.email}</p>
+                </div>
+                <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
+                  <Users className="w-5 h-5 text-white" />
+                </div>
+              </button>
+            ))}
+          </div>
+
+        <div className="bg-white rounded-2xl shadow-lg p-6 mt-10">
           <div className="flex items-center gap-3 mb-8 border-b pb-4">
             <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-2 rounded-xl">
               <MessageSquare className="w-6 h-6 text-white" />

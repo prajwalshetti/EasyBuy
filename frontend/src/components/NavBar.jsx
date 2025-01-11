@@ -111,10 +111,10 @@ function NavBar() {
             </div>
 
             
-            <NavItem to="/dashboard/chat" requiresAuth>
+            {user.role==0&&<NavItem to="/dashboard/chat" requiresAuth>
               <Package className="w-4 h-4" />
               <span>Chat</span>
-            </NavItem>
+            </NavItem>}n
           </div>
         </div>
       </div>
