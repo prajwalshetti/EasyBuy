@@ -111,7 +111,7 @@ function NavBar() {
             </div>
 
             
-            {user.role==0&&<NavItem to="/dashboard/chat" requiresAuth>
+            {isLoggedIn&&user&&user.role==0&&<NavItem to="/dashboard/chat" requiresAuth>
               <Package className="w-4 h-4" />
               <span>Chat</span>
             </NavItem>}
