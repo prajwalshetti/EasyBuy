@@ -75,7 +75,7 @@ if (!singleChatter) {
       <div className="max-w-4xl mx-auto p-4">
         <div className="bg-white rounded-2xl shadow-lg p-6">
           <div className="flex items-center gap-3 mb-8 border-b pb-4">
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-2 rounded-xl">
+            <div className="bg-gradient-to-r from-yellow-500 to-yellow-600 p-2 rounded-xl">
               <MessageSquare className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -88,13 +88,13 @@ if (!singleChatter) {
               <button
                 key={chatter._id}
                 onClick={() => {setSingleChatter(chatter); fetchChatsWithSingleChatter(chatter._id);}}
-                className="flex items-center p-4 border border-gray-100 rounded-xl hover:bg-orange-50 hover:border-orange-200 transition-all duration-200 group"
+                className="flex items-center p-4 border border-gray-100 rounded-xl hover:bg-yellow-50 hover:border-yellow-200 transition-all duration-200 group"
               >
                 <div className="flex-1">
-                  <h3 className="font-semibold text-gray-800 group-hover:text-orange-600">{chatter.username}</h3>
+                  <h3 className="font-semibold text-gray-800 group-hover:text-yellow-600">{chatter.username}</h3>
                   <p className="text-sm text-gray-500">{chatter.email}</p>
                 </div>
-                <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
+                <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
                   <Users className="w-5 h-5 text-white" />
                 </div>
               </button>
@@ -137,14 +137,14 @@ if (!singleChatter) {
               <div
                 className={`max-w-[70%] rounded-lg p-3 ${
                   message.sender._id === user._id
-                    ? 'bg-orange-500 text-white'
+                    ? 'bg-yellow-500 text-white'
                     : 'bg-gray-100 text-gray-800'
                 }`}
               >
                 <p>{message.content}</p>
                 <p className={`text-xs mt-1 ${
                   message.sender._id === user._id
-                    ? 'text-orange-100'
+                    ? 'text-yellow-100'
                     : 'text-gray-500'
                 }`}>
                   {new Date(message.createdAt).toLocaleTimeString()}
@@ -162,11 +162,11 @@ if (!singleChatter) {
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           placeholder="Type your message..."
-          className="flex-1 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+          className="flex-1 p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
         <button
           type="submit"
-          className="bg-orange-500 text-white p-3 rounded-lg hover:bg-orange-600 transition-colors duration-200 flex items-center gap-2"
+          className="bg-yellow-500 text-white p-3 rounded-lg hover:bg-yellow-600 transition-colors duration-200 flex items-center gap-2"
         >
           <Send className="w-5 h-5" />
           Send
