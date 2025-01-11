@@ -1,17 +1,41 @@
 import React, { useEffect, useState,useRef } from 'react';
 import { useAuth } from '../../context/auth.jsx';
+import { useWebSocket } from '../../context/WebSocketContext.jsx';
 import axios from 'axios';
 import { MessageSquare, Loader2, User, Clock, Send,Users,ArrowLeft } from 'lucide-react';
 import { toast } from 'react-toastify';
 
 const AdminChat = () => {
   const { user } = useAuth();
+  const { ws, messages, setMessages } = useWebSocket();
 
   const [chats,setChats]=useState([])
   const [chatters,setChatters]=useState([])
   const [newMessage, setNewMessage] = useState('');
   const [singleChatter,setSingleChatter]=useState(null)
   const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    if (ws) {
+      // Register user when component mounts
+      ws.send(JSON.stringify({
+        type: 'register',
+        senderId: user._id
+      }));
+
+      // Set up message handler
+      ws.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        if (message.from === singleChatter?._id) {
+          setChats(prev => [...prev, {
+            sender: { _id: message.from },
+            content: message.content,
+            createdAt: new Date().toISOString()
+          }]);
+        }
+      };
+    }
+  }, [ws, singleChatter]);
   
   const fetchAllChatters=async()=>{
     try {
@@ -49,6 +73,16 @@ const AdminChat = () => {
     try {
       if(!newMessage)return;
       const messageContent = newMessage;
+
+      if (ws) {
+        ws.send(JSON.stringify({
+          type: 'private_message',
+          senderId: user._id,
+          receiverId: id,
+          content: messageContent
+        }));
+      }
+      
       const response=await axios.post(`http://localhost:8000/api/v1/chat/createChat/${id}`,{content:newMessage},{withCredentials:true})
             setChats(prev => [...prev, {
         sender: { _id: user._id },

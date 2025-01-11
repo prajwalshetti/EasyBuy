@@ -5,13 +5,16 @@ import App from './App.jsx'
 import { AuthProvider } from './context/auth.jsx'
 import { CartProvider } from './context/CartContext.jsx'
 import { OrderProvider } from './context/PrevOrder.jsx'
+import { WebSocketProvider } from './context/WebSocketContext.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-    <CartProvider>
-      <OrderProvider>
-        <App />
-      </OrderProvider>
-    </CartProvider>
-  </AuthProvider>,
+  <WebSocketProvider>
+    <AuthProvider>
+      <CartProvider>
+        <OrderProvider>
+          <App />
+        </OrderProvider>
+      </CartProvider>
+    </AuthProvider>
+  </WebSocketProvider>,
 )

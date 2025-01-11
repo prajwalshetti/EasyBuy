@@ -3,6 +3,7 @@ import { useAuth } from '../context/auth.jsx';
 import axios from 'axios';
 import { Send, Loader2, Users, MessageSquare, ArrowLeft } from 'lucide-react';
 import { toast } from 'react-toastify';
+import { useWebSocket } from '../context/WebSocketContext.jsx';
 
 const Chat = () => {
   const { user } = useAuth();
@@ -12,6 +13,7 @@ const Chat = () => {
   const [admins, setAdmins] = useState([]);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const messagesEndRef = useRef(null);
+  const { ws } = useWebSocket();
   
   const [chatters,setChatters]=useState([])
   const fetchAllChatters=async()=>{
@@ -36,6 +38,27 @@ const Chat = () => {
     fetchAllChatters()
   },[])
 
+  useEffect(() => {
+    if (ws) {
+      // Register user when component mounts
+      ws.send(JSON.stringify({
+        type: 'register',
+        senderId: user._id
+      }));
+
+      // Set up message handler
+      ws.onmessage = (event) => {
+        const message = JSON.parse(event.data);
+        if (message.from === selectedAdmin?._id) {
+          setMessages(prev => [...prev, {
+            sender: { _id: message.from },
+            content: message.content,
+            createdAt: new Date().toISOString()
+          }]);
+        }
+      };
+    }
+  }, [ws, selectedAdmin]);
 
 
   const scrollToBottom = () => {
@@ -98,6 +121,14 @@ const Chat = () => {
 
     try {
       // Replace with your actual endpoint
+      if (ws) {
+        ws.send(JSON.stringify({
+          type: 'private_message',
+          senderId: user._id,
+          receiverId: selectedAdmin._id,
+          content: messageContent
+        }));
+      }
       await axios.post(
         `http://localhost:8000/api/v1/chat/createChat/${selectedAdmin._id}`,
         { content: messageContent },
