@@ -38,11 +38,13 @@ wss.on('connection',(ws)=>{
                     from:senderId,
                     content
                 })
-                if(socketUsers[receiverId]){
+                if(socketUsers[receiverId])//online
+                {
                     socketUsers[receiverId].send(message)
                     console.log("Receiver online")
                 }
-                else{
+                else//offline
+                {
                     console.log("Receiver does not exist")
                     const senderCheck=await User.findById(senderId)
                     const receiverCheck=await User.findById(receiverId)
