@@ -51,6 +51,10 @@ function AdminNavBar() {
             <NavItem to="/dashboard/adminDashboard/seeUsersList" icon={Users}>
               Users List
             </NavItem>
+
+            <NavItem to="/dashboard/adminDashboard/adminChat" icon={Users}>
+              Admin Chat
+            </NavItem>
           </div>
         </div>
       </div>
