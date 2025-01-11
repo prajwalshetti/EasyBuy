@@ -74,7 +74,7 @@ const logoutuser=asyncHandler(async(req,res)=>{
 })
 
 const getAllUsers=asyncHandler(async(req,res)=>{
-    const {role}=req.body
+    const {role}=req.query
     const query={}
     if(role){
         query.role=role

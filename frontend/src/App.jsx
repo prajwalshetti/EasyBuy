@@ -19,6 +19,7 @@ import ProductDetails from './components/ProductDetails.jsx'
 import Order from './components/Order.jsx'
 import ManageOrder from './components/adminComponents/ManageOrder.jsx'
 import Chat from './components/chat.jsx'
+import AdminChat from './components/adminComponents/adminChat.jsx'
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="seeUsersList" element={<SeeUsers/>}/>
             <Route path="product/:id" element={<SingleProduct/>}/>
             <Route path="manageOrder" element={<ManageOrder/>}/>
+            <Route path='adminChat' element={<AdminChat/>}/>
           </Route>
           <Route path='productDetails/:id' element={<ProductDetails/>}/>
         </Route>
