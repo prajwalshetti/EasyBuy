@@ -3,11 +3,13 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { PackageSearch, Phone, User, Save } from 'lucide-react';
+import { useAuth } from '../../context/auth';
 
 function ManageOrder() {
   const [orders, setOrders] = useState([]);
   const [status, setStatus] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const {user}=useAuth()
 
   const statusColors = {
     'Processing': 'bg-green-100 text-green-800',
@@ -86,7 +88,7 @@ function ManageOrder() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Phone className="w-5 h-5 text-gray-500" />
-                    <span className="text-gray-600">+919454830294</span>
+                    <span className="text-gray-600">{order.buyer.phone}</span>
                   </div>
                 </div>
 
