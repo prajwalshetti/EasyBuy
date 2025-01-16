@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useAuth } from '../context/auth.jsx';
 import axios from 'axios';
-import { Send, Loader2, Users, MessageSquare, ArrowLeft } from 'lucide-react';
+import { Send, Loader2, Users, MessageSquare, ArrowLeft,User } from 'lucide-react';
 import { toast } from 'react-toastify';
 import { useWebSocket } from '../context/WebSocketContext.jsx';
 
@@ -171,7 +171,7 @@ const Chat = () => {
                   <p className="text-sm text-gray-500">{chatter.email}</p>
                 </div>
                 <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-xl flex items-center justify-center">
-                  <Users className="w-5 h-5 text-white" />
+                  <User className="w-5 h-5 text-white" />
                 </div>
               </button>
             ))}
@@ -199,7 +199,7 @@ const Chat = () => {
                   <p className="text-sm text-gray-500">{admin.email}</p>
                 </div>
                 <div className="w-10 h-10 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-                  <Users className="w-5 h-5 text-white" />
+                  <User className="w-5 h-5 text-white" />
                 </div>
               </button>
             ))}
@@ -236,7 +236,7 @@ const Chat = () => {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
-              <Users className="w-6 h-6 text-white" />
+              <User className="w-6 h-6 text-white" />
             </div>
             <div>
               <h2 className="text-xl font-bold text-gray-800">{selectedAdmin.name || selectedAdmin.username}</h2>

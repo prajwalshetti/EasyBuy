@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import { useCart } from "../context/CartContext";
-import { Search, ShoppingCart, Package, User, Home, LogIn, UserPlus, Settings, Lock } from 'lucide-react';
+import { Search, ShoppingCart, Package, User, Home, LogIn, UserPlus, Settings, Lock,MessageSquare,MessageSquareIcon } from 'lucide-react';
 import { useState } from "react";
 
 function NavBar() {
@@ -112,7 +112,7 @@ function NavBar() {
 
             
             {isLoggedIn&&user&&user.role==0&&<NavItem to="/dashboard/chat" requiresAuth>
-              <Package className="w-4 h-4" />
+              <MessageSquare className="w-4 h-4" />
               <span>Chat</span>
             </NavItem>}
           </div>
