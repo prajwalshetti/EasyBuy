@@ -5,7 +5,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
-import { Package, Phone,AlertCircle,ShoppingBag } from 'lucide-react';
+import { Package, Phone,AlertCircle,ShoppingBag,MessageSquare } from 'lucide-react';
 
 function Order() {
   const { prevOrders, setPrevOrders } = useOrder();
@@ -117,8 +117,12 @@ function Order() {
 
                 <div className="mt-6 pt-6 border-t border-gray-200">
                   <div className="flex items-center justify-center space-x-2 text-gray-600">
-                    <Phone className="w-4 h-4" />
-                    <span className="text-sm">Need help? Contact us at +919454830294</span>
+                    {/* <Phone className="w-4 h-4" /> */}
+                    <span className="text-sm">Need Help?</span>
+                    <div className='border border-black rounded flex bg-yellow-200 p-1'>
+                      <MessageSquare className="w-4 h-4 mt-1 mr-1" />
+                      <button onClick={()=>{navigate("/dashboard/chat")}}>Chat with admin</button>
+                    </div>
                   </div>
                 </div>
               </div>
