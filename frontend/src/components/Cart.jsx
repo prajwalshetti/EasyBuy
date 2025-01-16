@@ -11,6 +11,7 @@ import { AlertCircle, ShoppingBag, Trash2, ExternalLink } from 'lucide-react';
 function Cart() {
   const { user, setUser } = useAuth();
   const { cart, setCart } = useCart();
+  const [address,setAddress]=useState(user.address);
   const navigate = useNavigate();
   const [isModalVisible, setModalVisible] = useState(false);
   const { prevOrders, setPrevOrders } = useOrder();
@@ -79,10 +80,10 @@ function Cart() {
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold text-gray-900 mb-8">Shopping Cart ({cart.length} items)</h1>
         
-        <Modal isVisible={isModalVisible} onClose={closeModal} title="Confirm your order">
+      <Modal isVisible={isModalVisible} onClose={closeModal} title="Confirm your order">
         <div className='flex flex-col'>
 
-        <input type="text" name="address" id="address" placeholder='Enter your address' className='m-2 p-2 border border-black rounded'/>
+        <input type="text" name="address" id="address" placeholder='Enter your address' className='m-2 p-2 border border-black rounded' value={address} onChange={(e)=>{setAddress(e.target.value)}}/>
 
         <button onClick={()=>{placeOrder()}} type="button" className="pl-3 pr-3 text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:bg-gradient-to-br font-medium rounded-lg text-sm px-5 py-2.5 text-center m-2 mt-10">Pay {getTotalAmount()}</button>
 
