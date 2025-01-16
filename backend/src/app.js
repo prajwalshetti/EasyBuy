@@ -5,12 +5,13 @@ import cookieParser from "cookie-parser"
 import { WebSocket, WebSocketServer } from "ws"
 import http from "http"
 
+
 const app = express()
 const server = http.createServer(app)
-
+const url=process.env.FRONT_END_URL
 // Express middleware
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: url,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
 }));
