@@ -20,6 +20,8 @@ import Order from './components/Order.jsx'
 import ManageOrder from './components/adminComponents/ManageOrder.jsx'
 import Chat from './components/chat.jsx'
 import AdminChat from './components/adminComponents/adminChat.jsx'
+import Vapi from './components/Vapi.jsx'
+import AIAgent from './components/AIAgent.jsx'
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path='/aiagent' element={<AIAgent/>}/>
         <Route path="/dashboard" element={<Dashboard />}>
           <Route index element={<Home />} />
           <Route path="profile" element={<Profile />} /> 

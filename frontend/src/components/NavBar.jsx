@@ -115,6 +115,11 @@ function NavBar() {
               <MessageSquare className="w-4 h-4" />
               <span>Chat</span>
             </NavItem>}
+            
+            <NavItem to="/aiagent" requiresAuth>
+              <User className="w-4 h-4" />
+              <span>AI Agent</span>
+            </NavItem>
           </div>
         </div>
       </div>
