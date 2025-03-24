@@ -21,10 +21,10 @@ function AIAgent() {
           </svg>
           Return to Dashboard
         </a>
-
-        <h1 className="text-2xl font-bold">EasyBuy AI Shopping Assistant</h1>
+        
+        <h1 className="text-2xl font-bold">AI Shopping Assistant</h1>
       </div>
-
+      
       {/* AI Assistant Information Section */}
       <div className="mb-8 text-center">
         <div className="mb-4">
@@ -34,35 +34,33 @@ function AIAgent() {
             </svg>
           </div>
         </div>
-        <h2 className="text-xl font-bold mb-2">Your EasyBuy Shopping Expert</h2>
+        <h2 className="text-xl font-bold mb-2">Your Intelligent Shopping Partner</h2>
         <p className="max-w-lg mx-auto">
-          This AI assistant is exclusively trained on EasyBuy's catalog, policies, and website features. 
-          Ask for help with any shopping task or get guidance on how to use specific EasyBuy features.
+          Our AI assistant is here to help you find the perfect products, compare options, 
+          and answer any questions about our inventory. Click the chat button in the bottom 
+          right corner to start a conversation.
         </p>
       </div>
-
+      
       {/* Feature Highlights */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
-          <h3 className="font-bold text-lg mb-2">EasyBuy Expert</h3>
-          <p>Trained specifically for EasyBuy's website, products, and services to give you accurate information.</p>
+          <h3 className="font-bold text-lg mb-2">Product Recommendations</h3>
+          <p>Get personalized suggestions based on your preferences and shopping history.</p>
         </div>
         <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
-          <h3 className="font-bold text-lg mb-2">Step-by-Step Guidance</h3>
-          <p>Learn how to create wishlists, apply promo codes, track orders, and more with personalized tutorials.</p>
+          <h3 className="font-bold text-lg mb-2">Instant Answers</h3>
+          <p>Find information about products, availability, and shipping options quickly.</p>
         </div>
         <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
-          <h3 className="font-bold text-lg mb-2">Website Navigation Help</h3>
-          <p>Get assistance finding specific pages, completing purchases, managing your account, and using site features.</p>
+          <h3 className="font-bold text-lg mb-2">Voice Interaction</h3>
+          <p>Talk naturally with our assistant using voice recognition technology.</p>
         </div>
       </div>
-
-
-      <Vapi 
-        onNewMessage={(msg) => {
-          setMessages(prevMessages => [...prevMessages, msg]);
-        }} 
-      />
+      
+      <Vapi onNewMessage={(msg) => {
+        setMessages(prevMessages => [...prevMessages, msg]);
+      }} />
     </div>
   );
 }
