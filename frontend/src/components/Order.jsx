@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
 import { Package, Phone,AlertCircle,ShoppingBag,MessageSquare } from 'lucide-react';
+import LoadingBoxes from './LoaodingBoxes';
 
 function Order() {
   const { prevOrders, setPrevOrders } = useOrder();
@@ -22,8 +23,11 @@ function Order() {
       } catch (error) {
         console.error('Error fetching orders:', error);
         toast.error('Failed to fetch orders');
-      } finally{
-        setIsLoading(false)
+      } finally {
+        // Ensure the loader stays for at least 1 second
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 1000);
       }
     };
     showOrders();
@@ -49,7 +53,7 @@ function Order() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <LoadingBoxes/>
       </div>
     );
   }

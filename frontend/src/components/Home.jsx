@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Modal from './Modal.jsx';
 import { useCart } from '../context/CartContext.jsx';
 import { AlertCircle, ShoppingCart, Filter, X, Package, RefreshCw } from 'lucide-react';
+import LoadingBoxes from './LoaodingBoxes.jsx';
 
 function Home() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -51,7 +52,10 @@ function Home() {
     } catch (error) {
       toast.error("No products found");
     } finally {
-      setIsLoading(false);
+      // Ensure the loader stays for at least 1 second
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
     }
   };
 
@@ -124,7 +128,7 @@ function Home() {
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
-        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+        <LoadingBoxes/>
       </div>
     );
   }
