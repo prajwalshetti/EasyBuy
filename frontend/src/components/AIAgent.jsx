@@ -36,27 +36,28 @@ function AIAgent() {
         </div>
         <h2 className="text-xl font-bold mb-2">Your Intelligent Shopping Partner</h2>
         <p className="max-w-lg mx-auto">
-          Our AI assistant is here to help you find the perfect products, compare options, 
-          and answer any questions about our inventory. Click the chat button in the bottom 
+          Our AI assistant is here to help you find the perfect products, place orders, 
+          and track orders. Click the chat button in the bottom 
           right corner to start a conversation.
         </p>
       </div>
       
       {/* Feature Highlights */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
-          <h3 className="font-bold text-lg mb-2">Product Recommendations</h3>
-          <p>Get personalized suggestions based on your preferences and shopping history.</p>
-        </div>
-        <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
-          <h3 className="font-bold text-lg mb-2">Instant Answers</h3>
-          <p>Find information about products, availability, and shipping options quickly.</p>
-        </div>
-        <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
-          <h3 className="font-bold text-lg mb-2">Voice Interaction</h3>
-          <p>Talk naturally with our assistant using voice recognition technology.</p>
-        </div>
-      </div>
+  <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
+    <h3 className="font-bold text-lg mb-2">Secured Admin Queries</h3>
+    <p>Admins can access confidential actions with secure authentication to manage products, orders, and users.</p>
+  </div>
+  <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
+    <h3 className="font-bold text-lg mb-2">Built for EasyBuy</h3>
+    <p>Designed specifically for EasyBuy to assist users in browsing, ordering, and resolving queries seamlessly.</p>
+  </div>
+  <div className="bg-white bg-opacity-20 p-4 rounded-lg shadow-md">
+    <h3 className="font-bold text-lg mb-2">24/7 AI Support</h3>
+    <p>Get round-the-clock assistance for product inquiries, order tracking, and issue resolution anytime.</p>
+  </div>
+</div>
+
       
       <Vapi onNewMessage={(msg) => {
         setMessages(prevMessages => [...prevMessages, msg]);
