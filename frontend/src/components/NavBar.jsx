@@ -116,7 +116,7 @@ function NavBar() {
               <span>Chat</span>
             </NavItem>}
             
-            <NavItem to="/aiagent" requiresAuth>
+            <NavItem to="/aiagent">
               <User className="w-4 h-4" />
               <span>AI Agent</span>
             </NavItem>
