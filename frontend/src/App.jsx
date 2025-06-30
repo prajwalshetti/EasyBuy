@@ -19,7 +19,7 @@ import ProductDetails from './components/ProductDetails.jsx'
 import Order from './components/Order.jsx'
 import ManageOrder from './components/adminComponents/ManageOrder.jsx'
 import Chat from './components/Chat.jsx'
-import AdminChat from './components/AdminComponents/dminChat.jsx'
+import AdminChat from './components/adminComponents/AdminChat.jsx'
 import Vapi from './components/Vapi.jsx'
 import AIAgent from './components/AIAgent.jsx'
 
